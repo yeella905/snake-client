@@ -15,16 +15,14 @@ const connect = function () {
 
   conn.on('connect', () => {
     console.log("Successfully connected to game server");
-    conn.write("Name: SNK");
-    
-    const moves = ["Move: up", "Move: down", "Move: left", "Move: right"];
-    const intervals = [500, 1000, 1500, 2000];
+    conn.write("Name: SNK"); 
 
-    moves.forEach((move, index) => {
-      setInterval(() => {
-        conn.write(move);
-      }, intervals[index]);
-    });
+const moves = ["Move: up", "Move: down", "Move: left", "Move: right"];
+let moveIndex = 0;
+setInterval(() => {
+  conn.write(moves[moveIndex]);
+  moveIndex = (moveIndex + 1) % moves.length;  // Cycle through moves
+}, 500);
 
   });
 
